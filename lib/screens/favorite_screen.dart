@@ -23,16 +23,19 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
       style: GoogleFonts.lato(fontWeight: FontWeight.w600),
     ),
     ),
-    body:Consumer<ItemsOnSale>(
-          builder: (context, favoriteList,child) {
-            return ListView.builder(
-              itemBuilder: (context, index) {
-                return FavotriteCard(item: favoriteList.favorite_list[index]);
-              },
-              itemCount: favoriteList.favorite_list.length,
-              scrollDirection: Axis.vertical,);
-          }
-        ));
+    body:Container(
+      color: Colors.black,
+      child: Consumer<ItemsOnSale>(
+            builder: (context, favoriteList,child) {
+              return ListView.builder(
+                itemBuilder: (context, index) {
+                  return FavotriteCard(item: favoriteList.favorite_list[index]);
+                },
+                itemCount: favoriteList.favorite_list.length,
+                scrollDirection: Axis.vertical,);
+            }
+          ),
+    ));
   }
 }
 
@@ -54,26 +57,35 @@ class FavotriteCard extends StatelessWidget {
             color: Colors.black,
             border: Border.all(
                 width: 5,
-                color: Colors.white
+                color: Colors.brown,
             ),
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
           ),
-          height: 80,
+          height: 100,
           child: Row(
             children: [
               Container(
                 child: Image.asset('assets/${item!.image}'),
               ),
               SizedBox(width: 20,),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(item!.name.toString()),
-                  Text('Category : ${item!.category.toString()}'),
-                  SizedBox(height: 10,),
-                  Text('Price : ${item!.price}')
-                ],
+              Container(
+                constraints: BoxConstraints(
+                  maxWidth: 170
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(item!.name.toString(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),),
+                    Text('Category : ${item!.category.toString()}'),
+                    SizedBox(height: 10,),
+                    Text('Price : ${item!.price}')
+                  ],
+                ),
               ),
               Spacer(flex: 1,),
               Align(

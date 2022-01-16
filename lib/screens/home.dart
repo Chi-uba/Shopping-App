@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_app/app_theme.dart';
+import 'package:shopping_app/features/animated_search_bar.dart';
 import 'AppData.dart';
 
 class Home extends StatelessWidget {
@@ -35,10 +37,11 @@ class SpecialOfferListView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(
-                left: 10.0),
-            child: const Text('SPECIAL OFFERS',
+          const AnimatedSearchBar(),
+          const Padding(
+            padding: EdgeInsets.only(
+              top: 20, left: 10.0),
+            child: Text('SPECIAL OFFERS',
             style: TextStyle(
               fontSize: 20,
               color: Colors.white,
@@ -86,7 +89,7 @@ class SpecialOfferCard extends StatelessWidget {
             width: 5,
             color: Colors.brown
           ),
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topRight: Radius.circular(40),
             bottomLeft: Radius.circular(40)
           ),
@@ -102,7 +105,7 @@ class SpecialOfferCard extends StatelessWidget {
           child: Container(
             height: 130,
             width: 300,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(20),
                   bottomLeft: Radius.circular(20)
@@ -124,20 +127,25 @@ class SpecialOfferCard extends StatelessWidget {
                           height: 85,
                         ),
                       ),
-                      SizedBox(height: 5,),
+                      const SizedBox(height: 5,),
                       Container(
-                        constraints: BoxConstraints(
-                          maxWidth: 60,
+                        constraints: const BoxConstraints(
+                          maxWidth: 70,
                         ),
                         child: Text(
-                          '${item.price}',
+                          '₦ ${item.price}',
                           textAlign: TextAlign.start,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold
+                          ),
                         ),
                       )
                     ],
                   ),
                 ),
-                Padding(padding: EdgeInsets.only(
+                Padding(padding: const EdgeInsets.only(
                       left: 5,
                       top: 0,
                     ),
@@ -146,12 +154,12 @@ class SpecialOfferCard extends StatelessWidget {
                       child: Column(
                         children: [
                           Container(
-                            constraints: BoxConstraints(
+                            constraints: const BoxConstraints(
                               maxWidth: 170,
                             ),
                             child: Text('${item.name}',
                             textAlign: TextAlign.start,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.black,
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -160,7 +168,7 @@ class SpecialOfferCard extends StatelessWidget {
                           const SizedBox(height: 5.0,),
                           Text('${item.category}',
                             textAlign: TextAlign.start,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.black,
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -210,23 +218,30 @@ class SpecialOfferCard extends StatelessWidget {
 class AvailableOffers extends StatefulWidget {
   const AvailableOffers({Key? key}) : super(key: key);
 
+
   @override
   State<AvailableOffers> createState() => _AvailableOffersState();
 }
 
 class _AvailableOffersState extends State<AvailableOffers> {
   @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<ItemsOnSale>(context,listen: false).ReturnSelectedList('All');
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     return Consumer<ItemsOnSale>(
-      builder: (context, list, child){
+      builder: (context, lists, child){
         return Column(
           children: [
             Container(
-              height: 100,
+              height: 150,
               color: Colors.black,
               child: Column(
                 children: [
-                  SizedBox(height: 8,),
+                  SizedBox(height: 40.0,),
                   const Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
@@ -239,195 +254,32 @@ class _AvailableOffersState extends State<AvailableOffers> {
                           fontSize: 20,
                         ),),
                       )),
-                  SizedBox(height: 10,),
+                  SizedBox(height: 15,),
                   Align(
                     alignment: Alignment.bottomLeft,
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
-                          const Text('CATEGORY :   ',),
-                          Container(
-                            height: 40,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 4,
-                                  color: Colors.brown
-                              ),
-                              borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                            ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                right: 13.0),
-                                child: Row(
-                                  children: [
-                                    IconButton(
-                                            onPressed: () {},
-                                            iconSize: 25,
-                                            icon: Icon(Icons.delete)),
-                                    Align(
-                                        alignment: Alignment.bottomCenter,
-                                        child: const Text('SPORTS'))
-                                  ],
-                                ),
-                              ),
-                          ),
-                          SizedBox(width: 10,),
-                          Container(
-                            height: 40,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 4,
-                                  color: Colors.brown
-                              ),
-                              borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  right: 13.0),
-                              child: Row(
-                                children: [
-                                  IconButton(
-                                      onPressed: () {},
-                                      iconSize: 25,
-                                      icon: Icon(Icons.delete)),
-                                  Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: const Text('CLOTHING'))
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 10,),
-                          Container(
-                            height: 40,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 4,
-                                  color: Colors.brown
-                              ),
-                              borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  right: 13.0),
-                              child: Row(
-                                children: [
-                                  IconButton(
-                                      onPressed: () {},
-                                      iconSize: 25,
-                                      icon: Icon(Icons.delete)),
-                                  Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: const Text('SHOES'))
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 10,),
-                          Container(
-                            height: 40,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 4,
-                                  color: Colors.brown
-                              ),
-                              borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  right: 13.0),
-                              child: Row(
-                                children: [
-                                  IconButton(
-                                      onPressed: () {},
-                                      iconSize: 25,
-                                      icon: Icon(Icons.delete)),
-                                  Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: const Text('BOOKS'))
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 10,),
-                          Container(
-                            height: 40,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 4,
-                                  color: Colors.brown
-                              ),
-                              borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  right: 13.0),
-                              child: Row(
-                                children: [
-                                  IconButton(
-                                      onPressed: () {},
-                                      iconSize: 25,
-                                      icon: Icon(Icons.delete)),
-                                  Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: const Text('HOME ELECTRONICS'))
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 10,),
-                          Container(
-                            height: 40,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 4,
-                                  color: Colors.brown
-                              ),
-                              borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  right: 13.0),
-                              child: Row(
-                                children: [
-                                  IconButton(
-                                      onPressed: () {},
-                                      iconSize: 25,
-                                      icon: Icon(Icons.delete)),
-                                  Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: const Text('ACCESSORIES'))
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 10,),
-                          Container(
-                            height: 40,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 4,
-                                  color: Colors.brown
-                              ),
-                              borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  right: 13.0),
-                              child: Row(
-                                children: [
-                                  IconButton(
-                                      onPressed: () {},
-                                      iconSize: 25,
-                                      icon: Icon(Icons.delete)),
-                                  Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: const Text('COSMETICS'))
-                                ],
-                              ),
-                            ),
-                          ),
+                          const Text('CATEGORY :   ',
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                          ),),
+                          CategoryButton( category: 'All',),
+                          CategoryButton( category: 'Sports',),
+                          const SizedBox(width: 10,),
+                          CategoryButton( category: 'Clothing',),
+                          const SizedBox(width: 10,),
+                          CategoryButton( category: 'Shoes',),
+                          const SizedBox(width: 10,),
+                          CategoryButton( category: 'Books',),
+                          const SizedBox(width: 10,),
+                          CategoryButton( category: 'Home Electronics',),
+                          const SizedBox(width: 10,),
+                          CategoryButton( category: 'Accessories',),
+                          const SizedBox(width: 10,),
+                          CategoryButton( category: 'Cosmetics',),
                         ],
                       ),
                     ),
@@ -440,7 +292,7 @@ class _AvailableOffersState extends State<AvailableOffers> {
               child: GridView.builder(
                 scrollDirection: Axis.vertical,
                 primary: false,
-                itemCount: list.offers.length,
+                itemCount: lists.selected_offer_category.length,
                 gridDelegate:
                 const SliverGridDelegateWithFixedCrossAxisCount(
                     childAspectRatio: 3/5,
@@ -452,7 +304,7 @@ class _AvailableOffersState extends State<AvailableOffers> {
                 itemBuilder: (context, index) {
                   return Container(
                       color: Colors.black,
-                      child: AvailableOfferCard(item: list.offers[index]));
+                      child: AvailableOfferCard(item: lists.selected_offer_category[index]));
                 },),
             ),
           ],
@@ -521,7 +373,16 @@ class _AvailableOfferCardState extends State<AvailableOfferCard> {
                           Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Text(widget.item.name.toString()),
+                              Container(
+                                constraints: BoxConstraints(
+                                  maxWidth: 100,
+                                ),
+                                child: Text(widget.item.name.toString(),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15
+                                ),),
+                              ),
                               Spacer(flex: 1),
                               IconButton(
                                   // 1
@@ -540,19 +401,29 @@ class _AvailableOfferCardState extends State<AvailableOfferCard> {
                       ),
                     ),
                     Spacer(flex: 1,),
-                    Align(
-                        alignment: Alignment.bottomRight,
-                        child: MaterialButton(
-                          textColor: Colors.white,
-                          child: const Text('Add to Cart'),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          color: Colors.red,
-                          onPressed: () {
-                            Provider.of<ItemsOnSale>(context,listen: false).addToCart(widget.item);
-                          },
+                    Row(
+                      children: [
+                        SizedBox(width: 8.0,),
+                        Text('₦ ${widget.item.price}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),),
+                        Spacer(flex: 1,),
+                        Align(
+                            alignment: Alignment.bottomRight,
+                            child: MaterialButton(
+                              textColor: Colors.white,
+                              child: const Text('Add to Cart'),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              color: Colors.red,
+                              onPressed: () {
+                                Provider.of<ItemsOnSale>(context,listen: false).addToCart(widget.item);
+                              },
+                            ),
                         ),
+                      ],
                     ),],
                 ),
             ),
@@ -561,5 +432,46 @@ class _AvailableOfferCardState extends State<AvailableOfferCard> {
     );
   }
 }
-// Finish my cart screen and favorites screen
-// Try a background image on the favorites and my cart screen
+
+class CategoryButton extends StatelessWidget {
+  String category;
+   CategoryButton({
+     required this.category,
+     Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Provider.of<ItemsOnSale>( context, listen: false)
+            .ReturnSelectedList(category);
+      },
+      child: Container(
+        height: 50,
+        decoration: BoxDecoration(
+          border: Border.all(
+              width: 4,
+              color: Colors.brown
+          ),
+          borderRadius: const BorderRadius.all(Radius.circular(30.0)),
+        ),
+        child: Center(
+          child: Row(
+            children: [
+              IconButton(
+                  onPressed: () {
+                    Provider.of<ItemsOnSale>( context, listen: false)
+                        .ReturnSelectedList(category);
+                  },
+                  iconSize: 25,
+                  icon: const Icon(Icons.delete)),
+              Text(category, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold,),),
+              const SizedBox(width: 20,)
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+

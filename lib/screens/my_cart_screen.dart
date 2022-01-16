@@ -14,43 +14,43 @@ class MyCartScreen extends StatefulWidget {
 }
 
 class _MyCartScreenState extends State<MyCartScreen> {
+  bool _onTapped = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 20,
+        actions: [
+        IconButton(
+        icon: const Icon(Icons.check),
+        color: _onTapped ? Colors.black : Colors.white,
+        onPressed: () {
+          if(!_onTapped) {}
+          else {}
+          setState(() {
+            _onTapped = !_onTapped;
+          });
+        },)
+        ],
         title: Text(
           'MY CART',
           style: GoogleFonts.lato(fontWeight: FontWeight.w600),
         ),
-      ),
-      body: Consumer<ItemsOnSale>(
-        builder: (context, lists, child) {
-          return Column(
-            children: [
-              ListView.builder(
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return MyCartListTile(item: lists.my_cart_list[index]);
-                },
-                itemCount: lists.my_cart_list.length,
-                scrollDirection: Axis.vertical,),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  height: 30,
-                child: Row(
-                  children: [
-                    Text('TOTAL PRICE :  '),
-                    Spacer(flex: 1,),
-                    Text('PRICE'),
-                  ],
-                ),
-                ),
-              )
-            ],
-          );
-        }
+    ),
+      body: Container(
+        color: Colors.black,
+        child: Column(
+              children: [
+        Consumer<ItemsOnSale>(
+              builder: (context, lists, child) {
+                return ListView.builder(
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return MyCartListTile(item: lists.my_cart_list[index]);
+                    },
+                    itemCount: lists.my_cart_list.length,
+                    scrollDirection: Axis.vertical,);}),
+              ],
+            )
       ),
     );
   }
@@ -66,21 +66,29 @@ class MyCartListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
+        top: 8.0,
         left: 8.0,
         right: 8.0,
         bottom: 8.0,),
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.black,
-          border: Border.all(
-              width: 5,
-              color: Colors.white
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(30),
+            bottomRight: Radius.circular(30),
           ),
-          borderRadius: BorderRadius.all(Radius.circular(10.0)),
         ),
         height: 80,
         child: Row(
           children: [
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.brown,
+                borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              ),
+              width: 5.0,
+            ),
+            SizedBox(width: 5.0,),
             Container(
               child: Image.asset('assets/${item!.image}'),
             ),
@@ -89,16 +97,24 @@ class MyCartListTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(item!.name.toString()),
+                Text(item!.name.toString(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    )
+                ),
                 Text('Category : ${item!.category.toString()}'),
-                SizedBox(height: 10,),
-                Text('Price : ${item!.price}')
+                const SizedBox(height: 10,),
+                Text('Price : ${item!.price}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ))
               ],
             ),
             Spacer(flex: 1,),
             SizedBox(width: 10.0,),
             Align(
-              alignment: Alignment.bottomCenter,
+              alignment: Alignment.center,
               child: IconButton(
                   onPressed: () {
                     Provider.of<ItemsOnSale>(context,listen: false).removeFromCart(item!);
