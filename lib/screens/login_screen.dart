@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 200,
                 child: Image(
-                  image: AssetImage('assets/fooderlich_assets/rw_logo.png'),
+                  image: AssetImage('assets/wellcome.jpeg'),
                 ),
               ),
               const SizedBox(height: 16),

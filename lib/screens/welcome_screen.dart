@@ -74,12 +74,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       controller: controller,
       children: [
         onboardPageView(
-          const AssetImage('assets/fooderlich_assets/recommend.png'),
-          '''Check out weekly recommended recipes and what your friends are cooking!''',
+          const AssetImage('assets/welcome3.jpeg'),
+          '''Check out special products offer and what your friends are cooking!''',
         ),
-        onboardPageView(const AssetImage('assets/fooderlich_assets/sheet.png'),
-            'Cook with step by step instructions!'),
-        onboardPageView(const AssetImage('assets/fooderlich_assets/list.png'),
+        onboardPageView(const AssetImage('assets/welcome2.jpeg'),
+            'SHOPPING TIME!!!'),
+        onboardPageView(const AssetImage('assets/welcome4.jpeg'),
             'Keep track of what you need to buy'),
       ],
     );

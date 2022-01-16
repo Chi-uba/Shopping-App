@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             const Image(
               height: 200,
-              image: AssetImage('assets/fooderlich_assets/rw_logo.png'),
+              image: AssetImage('assets/wellcome.jpeg'),
             ),
             SizedBox(height: 10,),
             const Text('Happiness is not in money but in shopping...')
