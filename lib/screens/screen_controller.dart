@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shopping_app/screens/favorite_screen.dart';
 import 'package:shopping_app/screens/home.dart';
 import 'package:shopping_app/screens/my_cart_screen.dart';
-
 import 'AppData.dart';
 
 class ScreenController extends StatefulWidget {
